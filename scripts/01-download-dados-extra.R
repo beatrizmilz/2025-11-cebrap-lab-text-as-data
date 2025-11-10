@@ -9,9 +9,9 @@ library(tidyverse)
 library(janitor)
 
 # Buscando dados de projetos de lei
-url_proposicoes_2023 <- "https://dadosabertos.camara.leg.br/arquivos/proposicoes/csv/proposicoes-2023.csv"
+url_proposicoes_2025 <- "https://dadosabertos.camara.leg.br/arquivos/proposicoes/csv/proposicoes-2025.csv"
 
-proposicoes <- read_csv2(url_proposicoes_2023)
+proposicoes <- read_csv2(url_proposicoes_2025)
 
 projetos_de_lei <- proposicoes |>
   filter(descricaoTipo == "Projeto de Lei")
