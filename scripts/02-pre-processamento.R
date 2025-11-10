@@ -30,6 +30,7 @@ nrow(resultados_enquete)
 sum(resultados_enquete$qtd_curtidas)
 
 # quantidade de curtidas por posicionamento
+# tabela de frequenca
 resultados_enquete |>
   group_by(posicionamento) |>
   summarise(total_curtidas = sum(qtd_curtidas)) |>
@@ -38,8 +39,10 @@ resultados_enquete |>
     porc_curtidas = scales::percent(porc_curtidas)
   )
 
+# gráfico simples
 resultados_enquete |>
   count(data, posicionamento) |>
+  arrange(desc(n)) |>
   ggplot() +
   aes(x = data, y = n) +
   geom_line(aes(color = posicionamento))
@@ -48,12 +51,18 @@ resultados_enquete |>
 
 # Vamos usar o pacote tidytext para fazer a tokenização
 tokens_enquete <- resultados_enquete |>
-  unnest_tokens(output = palavra, input = conteudo)
+  unnest_tokens(
+    output = palavra,
+    input = conteudo,
+    # o token é a palavra
+    token = "words"
+  )
 
 # Palavras mais frequentes
 
 tokens_enquete |>
-  count(palavra, sort = TRUE)
+  count(palavra, sort = TRUE) |>
+  View()
 
 # tem muitas palavras que não são relevantes para a análise
 # chamamos de STOP WORDS!
@@ -66,6 +75,7 @@ source("scripts/stop-words.R")
 
 
 tokens_sem_stopwords <- tokens_enquete |>
+  # removendo stop words
   filter(!palavra %in% stop_words_completo) |>
   # Removendo números
   filter(!str_detect(palavra, "[0-9]"))
@@ -73,15 +83,14 @@ tokens_sem_stopwords <- tokens_enquete |>
 # Palavras mais frequentes sem stopwords
 
 tokens_sem_stopwords |>
-  count(palavra, sort = TRUE)
+  count(palavra, sort = TRUE) |>
+  View()
 
 # Problemas:
 # - palavras com a mesma raiz são contadas separadamente
 # ex: "votar", "votou", "votando", "votaram"
 # - palavras singular/plural são contadas separadamente
 # ex: imposto, impostos
-
-# Erros de português
 
 # Stemming ------------------------
 
@@ -93,18 +102,28 @@ tokens_sem_stopwords |>
 # É um processo que pode demorar
 # Vamos buscar os tokens únicos, e depois unir com os dados
 
-length(tokens_arrumados$palavra)
-length(unique(tokens_arrumados$palavra))
+# rm(resultados_enquete_raw)
 
-stems <- tokens_arrumados |>
+length(tokens_sem_stopwords$palavra)
+length(unique(tokens_sem_stopwords$palavra))
+
+# pode demorar
+stems <- tokens_sem_stopwords |>
   distinct(palavra) |>
-  mutate(stem = ptstem::ptstem(palavra))
+  mutate(stem = ptstem::ptstem(palavra)) # isso é meio demorado!
 
-tokens_stem <- tokens_arrumados |>
+tokens_stem <- tokens_sem_stopwords |>
   left_join(stems, by = "palavra")
 
 tokens_stem |>
   count(stem, sort = TRUE)
+
+# checando os termos mais frequentes
+tokens_stem |>
+  count(stem, sort = TRUE) |>
+  head(30) |>
+  View()
+
 
 fs::dir_create("dados")
 
