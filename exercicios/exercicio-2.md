@@ -52,13 +52,7 @@ preferência que tenha respostas para conseguirmos analisar), e tente
 explorar os conceitos vistos na parte de pré-processamento usando esses
 dados.
 
-Anote as dúvidas. De preferência, anote também suas dúvidas no arquivo
-que estamos usando no Google Drive, para que seja fácil de encontrar e
-conversar sobre durante a aula.
-
-Coloque o link para a enquete que você escolheu lá no arquivo do Google
-drive, ao lado do seu nome! Assim, podemos ver as enquetes que cada um
-escolheu.
+Anote as dúvidas.
 
 ## Prática - Exercício 2
 
@@ -78,9 +72,4 @@ análises que achar interessante:
 - Faça uma visualização dos dados, usando a wordcloud, por
   posicionamento.
 
-Anote as dúvidas. De preferência, anote também suas dúvidas no arquivo
-que estamos usando no Google Drive, para que seja fácil de encontrar e
-conversar sobre durante a aula.
-
-Cole algumas visualizações criadas junto ao seu nome, assim conseguimos
-ver o que cada pessoa fez.
+Anote as dúvidas.
