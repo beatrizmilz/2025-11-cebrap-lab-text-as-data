@@ -1,9 +1,12 @@
 # Sources que tem pt: "snowball", "stopwords-iso", "nltk"
 
+library(stopwords)
 # Vamos usar o snowball
 snowball <-
   stopwords::stopwords(source = "snowball", language = "pt")
 
+# também dá para buscar no pacote tm
+stopwords_tm <- tm::stopwords("pt")
 
 # Vamos adicionar algumas palavras que não estão no snowball
 # Mas que olhando os resultados, aparecem muito
@@ -14,8 +17,6 @@ extra_stop_words <- c(
   "pra",
   "vai",
   "portanto",
-  "quer",
-  "querer",
   "quase",
   "pois",
   "algo",
@@ -26,10 +27,21 @@ extra_stop_words <- c(
   "sendo",
   "existe",
   "disso",
-  "deveria",
-  "deveriam",
   "disso",
-  "á"
+  "á",
+  "ter",
+  "pode",
+  "sobre"
 )
 
-stop_words_completo <- c(snowball, extra_stop_words)
+stop_words_completo <- unique(c(snowball, stopwords_tm, extra_stop_words))
+
+
+stop_words_bigram <- c(
+  "muitas vezes",
+  "ponto positivo",
+  "pontos positivos",
+  "faz sentido",
+  "único ponto",
+  "nenhum ponto"
+)
