@@ -9,7 +9,11 @@
 # Importar texto de sites: técnicas de web scraping, como
 # rvest::html_text() (mais avançado)
 
+library(tidyverse)
+library(tidytext)
 library(readtext)
+
+# arquivo PDF de exemplo
 arquivo_pdf <- readtext::readtext(
   "referencias/1859-Texto do artigo-3971-2-10-20210608.pdf"
 )
@@ -29,6 +33,6 @@ df_texto_limpo <- df_texto_estruturado |>
   mutate(text = str_trim(text)) |>
   filter(text != "")
 
-df_texto_limpo |>
+contagem_tokens <- df_texto_limpo |>
   unnest_tokens(input = text, output = "word") |>
   count(word, sort = TRUE)
