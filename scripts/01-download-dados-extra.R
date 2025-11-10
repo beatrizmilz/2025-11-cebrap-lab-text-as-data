@@ -13,7 +13,7 @@ url_proposicoes_2023 <- "https://dadosabertos.camara.leg.br/arquivos/proposicoes
 
 proposicoes <- read_csv2(url_proposicoes_2023)
 
-projetos_de_lei <- proposicoes |> 
+projetos_de_lei <- proposicoes |>
   filter(descricaoTipo == "Projeto de Lei")
 
 
@@ -27,7 +27,7 @@ baixar_enquete <- function(id_enquete) {
   )
   dados <- read_csv(url, skip = 1) |>
     clean_names() |>
-    mutate(id = id_enquete, .before = everything()) |> 
+    mutate(id = id_enquete, .before = everything()) |>
     mutate(qtd_curtidas = as.numeric(qtd_curtidas))
   dados
 }
@@ -41,17 +41,17 @@ baixar_enquete("2373385")
 palavras_tema <- c("inteligência artificial")
 
 projetos_tema <- projetos_de_lei |>
-  filter(str_detect(str_to_lower(ementa), "inteligência artificial")) 
+  filter(str_detect(str_to_lower(ementa), "inteligência artificial"))
 
 
-resultados_tema_lista <- map(projetos_tema$id, baixar_enquete) 
+resultados_tema_lista <- map(projetos_tema$id, baixar_enquete)
 
-resultados_tema <- resultados_tema_lista |> 
+resultados_tema <- resultados_tema_lista |>
   bind_rows()
 
 
 fs::dir_create("dados-brutos")
 
 
-resultados_tema |> 
+resultados_tema |>
   write_rds("dados-brutos/resultados_enquetes-IA.rds")
