@@ -31,7 +31,8 @@ pacotes <-
     "janitor",
     "remotes",
     "readtext",
-    "fs")
+    "fs",
+    "tm")
 install.packages(pacotes)
 ```
 
