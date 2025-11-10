@@ -3,6 +3,10 @@ library(wordcloud2)
 
 tokens <- read_rds("dados/tokens_preparados.rds")
 
+quantidade_comentarios_posicionamento <- tokens |>
+  count(posicionamento)
+
+
 tokens |>
   count(stem, sort = TRUE)
 
@@ -23,10 +27,15 @@ mais_frequentes |>
   mutate(stem = fct_reorder(stem, n)) |>
   ggplot() +
   aes(y = stem, x = n) +
-  geom_col(aes(fill = posicionamento))
+  geom_col(aes(fill = posicionamento), show.legend = FALSE) +
+  facet_wrap(~posicionamento)
 
 
-# Nuvem de palavras por posicionamento
+
+# Nuvem de palavras por posicionamento -----
+# wordcloud2 recebe 2 colunas:
+# palavra (word)
+# frequencia da palavra/tamanho que ela aparece (freq)
 
 library(wordcloud2)
 
