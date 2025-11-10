@@ -32,7 +32,9 @@ pacotes <-
     "remotes",
     "readtext",
     "fs",
-    "tm")
+    "tm",
+    "topicmodels",
+    "reshape2")
 install.packages(pacotes)
 ```
 
