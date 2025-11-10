@@ -24,6 +24,7 @@ library(janitor)
 id_enquete <- "2373385"
 
 # URL para baixar os dados
+# Conseguimos entender o link usando o botão baixar
 url <- paste0(
   "https://www.camara.leg.br/enquetes/posicionamentos/download/todos-posicionamentos?idEnquete=",
   id_enquete,
@@ -36,6 +37,7 @@ resultados_enquete <- read_csv(url, skip = 1) |>
   clean_names() |>
   mutate(id = id_enquete, .before = everything())
 
+# criando pasta para guardar resultados
 fs::dir_create("dados-brutos")
 
 # Salvando os dados
