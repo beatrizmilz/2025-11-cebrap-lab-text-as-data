@@ -1,0 +1,75 @@
+---
+title: "cebrap.lab online -  Análise quantitativa de texto"
+subtitle: "Introdução ao curso"
+format:
+  revealjs:
+    incremental: false
+    logo: "https://cursos.cebrap.org.br/wp-content/uploads/2022/02/logo-nav.png"
+    footer: "Slides por [Beatriz Milz](https://beatrizmilz.com), feitos com [Quarto](https://quarto.org/docs/presentations/revealjs/index.html). Códigos e materiais disponíveis no [GitHub](https://github.com/beatrizmilz/2025-11-cebrap-lab-text-as-data). Licença de uso: [CC-BY-SA](https://beatrizmilz.com/license/)."
+    theme: ["custom.scss"]
+    slide-number: c/t
+    show-slide-number: all
+    hash-type: number
+editor: visual
+lang: pt
+author: "Beatriz Milz"
+date: '2025-11-10'
+date-format: 'MMMM/YYYY'
+---
+
+## Ministrante
+
+[![](img/beatriz-github.png){fig-align="center" width="60%"}](https://github.com/beatrizmilz)
+
+## Informações gerais
+
+-   **Data/horário:** 10 de novembro a 14 de novembro/2025;
+    -   Segunda, Terça e Quinta: aula ao vivo, online, das 19h00 às 22h00.
+    -   Quarta e Sexta: haverão tarefas para casa, para praticar os conceitos.
+
+## Público alvo
+
+-   Pessoas que tenham interesse em analisar textos com métodos quantitativos utilizando R;
+
+-   Tenham familiaridade fazendo as seguintes tarefas em R: importar bases de dados, filtrar linhas, selecionar colunas, agrupar a base, criar sumarizações, criar novas colunas, criar gráficos simples com ggplot2 (pacotes readr, dplyr e ggplot2 do tidyverse).
+
+## Pré-requisitos
+
+-   `R` e `RStudio` instalados no seu computador:
+
+-   Links para instalação:
+
+    -   [R](https://cran.r-project.org/bin/windows/base/)
+    -   [RStudio](https://rstudio.com/products/rstudio/download/)
+
+-   Instalar pacotes: listados no README
+
+## Ciclo da Ciência de Dados
+
+<img src="img/ciclo-ciencia-de-dados.png" style="display: block; margin-left: auto; margin-right: auto;"/>
+
+::: footer
+Slide do curso de [Visualização de Dados](https://curso-r.github.io/main-visualizacao/slides/slides.html), da [Curso-R](https://curso-r.com), ministrado por mim e [Julio Trecenti](https://br.linkedin.com/in/jtrecenti).
+:::
+
+## Fluxo de trabalho de análise de texto
+
+<img src="img/tmwr_0101.png" style="display: block; margin-left: auto; margin-right: auto;"/>
+
+::: footer
+Imagem do livro [Text Mining with R](https://www.tidytextmining.com/tidytext#contrasting-tidy-text-with-other-data-structures).
+:::
+
+## Plano das aulas
+
+-   Introdução à análise de texto quantitativo com R
+
+-   Pré-processamento de texto
+
+-   Análise Descritiva / Visualização
+
+-   N-grams e tf-idf
+
+-   Importação (mais avançada)
+
+## Vamos começar? {.middle .center}

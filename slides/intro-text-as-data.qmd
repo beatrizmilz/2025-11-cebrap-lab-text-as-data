@@ -1,0 +1,159 @@
+---
+title: "cebrap.lab online -  Análise quantitativa de texto"
+subtitle: " Introdução"
+format:
+  revealjs:
+    incremental: false
+    logo: "https://cursos.cebrap.org.br/wp-content/uploads/2022/02/logo-nav.png"
+    footer: "Slides por [Beatriz Milz](https://beatrizmilz.com), feitos com [Quarto](https://quarto.org/docs/presentations/revealjs/index.html). Códigos e materiais disponíveis no [GitHub](https://github.com/beatrizmilz/2025-11-cebrap-lab-text-as-data). Licença de uso: [CC-BY-SA](https://beatrizmilz.com/license/)."
+    theme: ["custom.scss"]
+    slide-number: c/t
+    show-slide-number: all
+    hash-type: number
+editor: visual
+lang: pt
+author: "Beatriz Milz"
+date: '2025-11-10'
+date-format: 'MMMM/YYYY'
+---
+
+```{r}
+adicionar_arte_horst <- function(img, ext = ".png", legenda_complementar = ""){
+  cat(paste0(
+"![](https://github.com/allisonhorst/stats-illustrations/blob/main/rstats-artwork/", img, ext, "?raw=true){fig-align='center'}
+
+::: footer
+Arte por [Allison Horst](https://mobile.twitter.com/allison_horst)", legenda_complementar, "
+:::
+"
+  ))
+}
+```
+
+# Conceitos
+
+## Processamento de Linguagem Natural (NLP)
+
+-   A sigla NLP significa **N**atural **L**anguage **P**rocessing.
+
+-   É uma área de estudo que combina conhecimentos de **linguística**, **ciência da computação** e **inteligência artificial** para entender como computadores podem ser usados para **processar e analisar grandes quantidades de dados textuais**.
+
+## NLP
+
+-   É uma área de estudo muito ampla.
+
+-   Neste curso, vamos focar em técnicas de análise de texto quantitativo
+
+## Text mining
+
+-   **Text mining**, ou mineração de texto, é um subcampo do NLP que se concentra na extração de informações úteis ou insights de grandes volumes de texto.
+
+-   Utiliza diversas técnicas de NLP para transformar texto não estruturado em dados estruturados.
+
+## Referência principal
+
+::::: columns
+::: {.column width="50%"}
+O livro ["Text Mining with R"](https://www.tidytextmining.com/) especificamente aborda como realizar mineração de texto utilizando a linguagem de programação R e o pacote [tidytext](https://juliasilge.github.io/tidytext/).
+:::
+
+::: {.column width="50%"}
+<img src="img/cover-tmwr.png" style="display: block; margin-left: auto; margin-right: auto;" width="80%"/>
+:::
+:::::
+
+::: footer
+Capa do livro [Text Mining with R](https://www.tidytextmining.com/tidytext#contrasting-tidy-text-with-other-data-structures).
+:::
+
+## Benefícios de usar o pacote tidytext
+
+-   Usa diversas ferramentas do pacote tidyverse
+
+-   Usamos o mesmo formato de dados: tibble!
+
+## Outros pacotes importantes
+
+-   [quanteda](https://quanteda.io/)
+
+-   [tm](https://cran.r-project.org/web/packages/tm/index.html) - [introdução](https://cran.r-project.org/web/packages/tm/vignettes/tm.pdf)
+
+## Conceito importante: tidy data
+
+```{r}
+#| results: 'asis'
+#| echo: false
+adicionar_arte_horst("tidydata_1", ext = ".jpg", legenda_complementar = "Illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.")
+```
+
+## Conceito importante: tidy data
+
+```{r}
+#| results: 'asis'
+#| echo: false
+adicionar_arte_horst("tidydata_2", ext = ".jpg", legenda_complementar = "Illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.")
+```
+
+## Conceito importante: tidy data
+
+```{r}
+#| results: 'asis'
+#| echo: false
+adicionar_arte_horst("tidydata_3", ext = ".jpg", legenda_complementar = "Illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.")
+```
+
+## Conteúdo para assistir amanhã
+
+-   [Como organizar seu banco de dados para análises estatísticas](https://www.youtube.com/watch?v=wzfPR2oQ61A), por Fernanda Peres
+
+## E para análise de texto?
+
+-   Em análise de textos, os autores chamaram esse formato de dados de "tidy text".
+
+-   Uma tabela com UM TOKEN por linha.
+
+-   Um **token** é uma unidade significativa de texto que temos interesse em usar para análise.
+
+-   O tipo de token mais comum é a palavra, mas pode ser também uma frase, um parágrafo, um *n-gram* (conjunto de n palavras), etc.
+
+-   **Tokenização** é o processo de dividir o texto em tokens.
+
+## Exemplo de tokenização
+
+Considere a frase:
+
+> O amor é uma ação, nunca simplesmente um sentimento. (bell hooks)
+
+```{r}
+#| echo: true
+library(tidyverse)
+library(tidytext)
+tibble(frase = "O amor é uma ação, nunca simplesmente um sentimento") |>
+  unnest_tokens(output = word, input = frase)
+```
+
+## Referências
+
+-   Tokens e tokenização:
+    -   <https://www.tidytextmining.com/tidytext#tidytext>
+    -   <https://smltar.com/tokenization>
+
+<!-- Aula 1 - Introdução à análise de texto quantitativo com R e pré-processamento de texto -->
+
+<!-- Mostrar o ciclo de ciência de dados, e mostrar como NLP se manifesta nestes tópicos e o que vamos tratar. -->
+
+<!-- Qual é o objetivo? -->
+
+<!-- Que tipo de análise quer fazer? -->
+
+<!-- Que tipo de análise NLP consegue resolver? -->
+
+<!-- O que será mostrado? NLP é muito amplo! -->
+
+<!-- Técnicas para criar uma base estruturada (a partir de dados textuais) -->
+
+<!--   - O que é análise de texto quantitativo -->
+
+<!--   - Importação de dados de texto para o R (diferentes formatos: PDF, word, HTML) -->
+
+<!--   - Introdução ao stringr -->
