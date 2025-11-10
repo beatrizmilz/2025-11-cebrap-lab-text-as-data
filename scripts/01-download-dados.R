@@ -6,22 +6,14 @@
 library(tidyverse)
 library(janitor)
 
-# Vamos buscar a enquete mais votada nos últimos 6 meses!
-# https://www.camara.leg.br/enquetes/2373385
-# https://www.camara.leg.br/propostas-legislativas/2373385
+# Vamos buscar a enquete mais comentada nos últimos 6 meses!
+# Site das enquetes: https://www.camara.leg.br/enquetes/
 
-# Descrição:
-# Altera o Decreto Lei nº 1.804, de 3 de setembro de 1980,
-# para aumentar o valor de minimis na importação de USD 50,00
-# para USD 100,00, reduzir a alíquota do imposto de importação
-# de 60% para 20% e aumentar o valor máximo das remessas expressas
-# de USD 3.000,00 para USD 5.000,00.
-
-# Proposto por
-# Luiz Philippe de Orleans e Bragança (PL-SP)
+# https://www.camara.leg.br/enquetes/2576168
+# https://www.camara.leg.br/propostas-legislativas/2576168
 
 # ID da enquete é o numero que aparece no final da URL
-id_enquete <- "2373385"
+id_enquete <- "2576168"
 
 # URL para baixar os dados
 # Conseguimos entender o link usando o botão baixar
@@ -36,6 +28,7 @@ url <- paste0(
 resultados_enquete <- read_csv(url, skip = 1) |>
   clean_names() |>
   mutate(id = id_enquete, .before = everything())
+
 
 # criando pasta para guardar resultados
 fs::dir_create("dados-brutos")
