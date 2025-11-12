@@ -12,40 +12,10 @@ Caso você não tenha feito o exercício da aula 1, as instruções estão abaix
 
 ## Prática - Exercício 1
 
-O site da Câmara dos deputados tem uma página de temas:
-<https://www.camara.leg.br/temas/>
+Considerando as enquetes no site da Câmara dos deputados:
+https://www.camara.leg.br/enquetes/
 
-- Agropecuária
-
-- Cidades e transportes
-
-- Ciência, tecnologia e comunicações
-
-- Consumidor
-
-- Coronavírus
-
-- Direitos humanos
-
-- Economia
-
-- Educação, cultura e esportes
-
-- Meio ambiente e energia
-
-- Política e administração pública
-
-- Reforma da Previdência
-
-- Relações exteriores
-
-- Saúde
-
-- Segurança
-
-- Trabalho, previdência e assistência
-
-Escolha um tema de interesse, e na página do tema, é possível ver as enquetes mais votadas. Escolha alguma enquete de interesse (de preferência que tenha respostas para conseguirmos analisar), e tente explorar os conceitos vistos na parte de pré-processamento usando esses dados.
+Escolha outra enquete de interesse (diferente da utilizada na aula, e de preferência que tenha respostas para conseguirmos analisar), e tente explorar os conceitos vistos na parte de pré-processamento usando esses dados.
 
 
 Anote as dúvidas. 
