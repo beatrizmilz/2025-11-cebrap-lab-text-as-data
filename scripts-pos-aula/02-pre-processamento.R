@@ -2,7 +2,10 @@
 library(tidyverse)
 library(tidytext)
 library(stopwords)
-# devtools::install_github("dfalbel/ptstem")
+
+# O pacote ptstem precisa ser instalado do GitHub
+# install.packages("remotes")
+# remotes::install_github("dfalbel/ptstem")
 library(ptstem)
 
 
@@ -22,8 +25,8 @@ glimpse(resultados_enquete_raw)
 # $ qtd_curtidas   <dbl> 2, 1, 2, 2, 2, 3, 1, 3, 4, 2, 0, 3, 0, 0, 0, 0, 12,…
 # $ conteudo       <chr> "Deixará o serviço público a mercê de indicação mer…
 
-mtcars |> View()
-
+# exemplo de linhas com nomes: prática antiga
+# mtcars |> View()
 
 # Conhecendo um pouco a base
 resultados_enquete <- resultados_enquete_raw |>
@@ -80,6 +83,58 @@ tokens_enquete <- resultados_enquete |>
   )
 
 ?unnest_tokens()
+# Pausa - funções do stringr para lidar com textos
+# deixar tudo minúsculo
+stringr::str_to_lower("OLÁ Como ESTÁ?")
+
+# deixar tudo em caixa baixa
+stringr::str_to_upper("olá como está")
+
+# remover padrões de textos
+# os padrões de texto (pattern) são criados usando expressões regulares (ReGex)
+stringr::str_remove_all("Olá, como você está??", pattern = ",")
+
+# remover padrões de texto: se precisar adicionar mais padrões,
+# separar com |
+stringr::str_remove_all("Olá, como você. está??", pattern = ",|\\?|\\.")
+
+# detectar padrões de texto
+# muito util no filter, pois a função retorna TRUE/FALSE
+stringr::str_detect("hoje é 11/11/2025", pattern = "[0-9]")
+
+# Exemplo
+resultados_enquete |>
+  filter(!str_detect(conteudo, pattern = "vergonha"))
+
+# outro exemplo
+resultados_enquete |>
+  filter(str_detect(conteudo, pattern = "#")) |>
+  View()
+
+# Criando um vetor com textos
+exemplos_de_texto <- resultados_enquete$conteudo[1:10]
+
+# Função str_view() ajuda a ver quais padrões estão sendo detectados
+# é útil quando queremos "montar" nossa expressão regular
+stringr::str_view(
+  exemplos_de_texto,
+  pattern = "[0-9]{3}",
+  html = FALSE
+)
+
+
+# Dúvida: como retirar acentos do texto?
+# install.packages("abjutils")
+abjutils::rm_accent(exemplos_de_texto)
+
+# dificil de lembrar
+stringi::stri_trans_general(x, "Latin-ASCII")
+
+tokens_sem_acentos <- tokens_sem_stopwords |>
+  mutate(palavra_sem_acento = abjutils::rm_accent(palavra))
+
+tokens_sem_acentos
+
 
 # Palavras mais frequentes
 
@@ -114,8 +169,6 @@ tokens_sem_stopwords |>
 # - palavras singular/plural são contadas separadamente
 # ex: imposto, impostos
 
-# FINAL DA AULA 1!
-
 # Stemming ------------------------
 
 # Stemming é o processo de reduzir palavras flexionadas
@@ -128,19 +181,40 @@ tokens_sem_stopwords |>
 
 # rm(resultados_enquete_raw)
 
+# Quantas linhas tem na base?
 length(tokens_sem_stopwords$palavra)
+
+# quantas tokens únicos temos na base?
 length(unique(tokens_sem_stopwords$palavra))
 
 # pode demorar
 stems <- tokens_sem_stopwords |>
+  # buscando as palavras distintas/única
   distinct(palavra) |>
+  # para as palavras distintas/únicas, aplicar a função ptstem
+  # para buscar o "tronco" da palavra
   mutate(stem = ptstem::ptstem(palavra)) # isso é meio demorado!
 
+
+# Com esse conteúdo, unir as duas tabelas, usando a coluna
+# "palavra" como chave
 tokens_stem <- tokens_sem_stopwords |>
   left_join(stems, by = "palavra")
 
+# ver os stems mais frequentes
 tokens_stem |>
-  count(stem, sort = TRUE)
+  count(stem, sort = TRUE) |>
+  View()
+
+
+# Quais são as paravras que aparecem em cada stem?
+palavras_por_stem <- tokens_stem |>
+  group_by(stem) |>
+  summarise(
+    frequencia = n(),
+    palavras = paste0(unique(palavra), collapse = ", ")
+  ) |>
+  arrange(desc(frequencia))
 
 # checando os termos mais frequentes
 tokens_stem |>
@@ -149,9 +223,18 @@ tokens_stem |>
   View()
 
 
+# Salvar isso para próxima etapa
 fs::dir_create("dados")
 
+# dúvida sobre criar pastas:
+# caminho relativo - partindo do projeto
+fs::dir_create("dados/tokens/")
 
-# Agora sim!
+# fora do projeto tem que usar caminho absoluto
+fs::dir_create("~/Desktop/pasta-de-exemplo")
+
+# fs::dir_create(Sys.Date())
+
+# Agora sim! Podemos salvar o arquivo para usar na visualização:
 tokens_stem |>
   write_rds("dados/tokens_preparados.rds")
